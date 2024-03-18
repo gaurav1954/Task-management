@@ -15,7 +15,7 @@ This is a Node.js project for managing tasks and user authentication using Expre
     npm install
     ```
 
-3. Set up your MongoDB connection by replacing the connection string in `models/db.js` with your MongoDB URI.
+3. Set up your MongoDB connection by replacing the connection string in `router.js` with your MongoDB URI.
 
 4. Start the server:
 
