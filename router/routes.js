@@ -14,6 +14,7 @@ function check(req, res, next) {
     }
 }
 
+
 router.get('/register', (req, res) => {
     res.render("task-views/register");
 });
