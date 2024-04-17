@@ -10,7 +10,7 @@ pipeline {
                     sh '''
                     docker login --username $USERNAME --password $PASSWORD
                     docker-compose build
-                    docker tag nodejs:latest gaurav1954/taskify:latest
+                    docker tag gaurav1954/taskify gaurav1954/taskify:latest
                     docker push gaurav1954/taskify:latest
                     '''
                 }
