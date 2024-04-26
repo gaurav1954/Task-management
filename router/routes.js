@@ -85,18 +85,18 @@ router.get('/show', check, async (req, res) => {
         const formattedDate = date.toLocaleDateString(undefined, options);
         return { ...task._doc, duedate: formattedDate };
     });
-
-    return res.render('task-views/show', { tasks: formattedTasks });
+    return res.render('task-views/show', { tasks: formattedTasks, co: false });
 
 });
 router.get('/completed', check, async (req, res) => {
 
     const id = req.session.UID;
     const user = await User.findById(id).populate("completedTasks");
+    console.log(user);
     const { completedTasks } = user;
 
     if (completedTasks.length === 0) {
-        return res.render('task-views/welcome', { user });
+        return res.render('task-views/welcome-com', { user });
     }
 
     completedTasks.sort((a, b) => {
@@ -118,7 +118,7 @@ router.get('/completed', check, async (req, res) => {
         return { ...task._doc, duedate: formattedDate };
     });
 
-    return res.render('task-views/show', { tasks: formattedTasks });
+    return res.render('task-views/show', { tasks: formattedTasks, co: true });
 
 });
 
@@ -162,11 +162,12 @@ router.patch('/edit/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const { id } = req.params
     const task = await Task.findById(id)
-    const user = await User.findOne({ tasks: { $in: [id] } })
+    const userid = req.session.UID;
+    const user = await User.findById(userid)
     user.tasks.pull(id);
+    user.completedTasks.push(id)
     await user.save();
-    await Task.findByIdAndDelete(id)
-    res.redirect('/show')
+    res.redirect('/show');
 })
 router.patch('/:id', async (req, res) => {
     const { id } = req.params

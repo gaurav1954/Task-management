@@ -31,14 +31,16 @@
                     </div>
 
                     <%}%>
-                        <div class="btns">
-                            <form action="/<%=task._id%>/edit">
-                                <button class="wide-button btn btn-light">Edit</button>
-                            </form>
-                            <form action="/<%=task._id%>?_method=DELETE" method="POST">
-                                <button class="wide-button btn btn-success">Mark as done</button>
-                            </form>
-                        </div>
+                        <%if(!co) {%>
+                            <div class="btns">
+                                <form action="/<%=task._id%>/edit">
+                                    <button class="wide-button btn btn-light">Edit</button>
+                                </form>
+                                <form action="/<%=task._id%>?_method=DELETE" method="POST">
+                                    <button class="wide-button btn btn-success">Mark as done</button>
+                                </form>
+                            </div>
+                            <%}%>
             </div>
             <%}%>
 
